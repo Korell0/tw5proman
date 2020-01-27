@@ -1,5 +1,41 @@
 import persistence
+import database_common
 
+@database_common.connection_handler
+def insert_board_data(cursor,id,title):
+    cursor.execute("""
+                    INSERT INTO boards
+                    VALUES ( %(id)s,%(title)s)                
+            """,
+                   {"id": id,
+                    "title": title
+                    }
+                   )
+
+@database_common.connection_handler
+def insert_card_data(cursor,id,board_id,title,status_id,order):
+    cursor.execute("""
+                    INSERT INTO status
+                    VALUES ( %(id)s,%(board_id)s,%(title)s,%(status_id)s,%(order)s)                
+            """,
+                   {"id": id,
+                    "board_id":board_id,
+                    "title": title,
+                    "status_id":status_id,
+                    "order": order
+                    }
+                   )
+
+@database_common.connection_handler
+def insert_status_data(cursor,id,title):
+    cursor.execute("""
+                    INSERT INTO status
+                    VALUES ( %(id)s,%(title)s)                
+            """,
+                   {"id": id,
+                    "title": title
+                    }
+                   )
 
 def get_card_status(status_id):
     """

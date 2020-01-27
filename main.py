@@ -8,6 +8,24 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    # data_handler.insert_board_data(1,"Board 1")
+    # data_handler.insert_board_data(2, "Board 2")
+    # data_handler.insert_card_data(1,1,"new card 1",0,0)
+    # data_handler.insert_card_data(2,1,"new card 2",0,1)
+    # data_handler.insert_card_data(3,1,"in progress card",1,0)
+    # data_handler.insert_card_data(4,1,"planning",2,0)
+    # data_handler.insert_card_data(5,1,"done card 1",3,0)
+    # data_handler.insert_card_data(6,1,"done card 1",3,1)
+    # data_handler.insert_card_data(7,2,"new card 1",0,0)
+    # data_handler.insert_card_data(8,2,"new card 2",0,1)
+    # data_handler.insert_card_data(9,2,"in progress card",1,0)
+    # data_handler.insert_card_data(10,2,"planning",2,0)
+    # data_handler.insert_card_data(11,2,"done card 1",3,0)
+    # data_handler.insert_card_data(12,2,"done card 1",3,1)
+    # data_handler.insert_status_data(0, "new")
+    # data_handler.insert_status_data(1,"in progress")
+    # data_handler.insert_status_data(2, "testing")
+    # data_handler.insert_status_data(3,"done")
     """
     This is a one-pager which shows all the boards and cards
     """
