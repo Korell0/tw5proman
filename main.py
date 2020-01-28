@@ -38,7 +38,19 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_boards()
+    return data_handler.get_data_from_boards()
+
+
+@app.route("/get-statuses")
+@json_response
+def get_statuses():
+    return data_handler.get_data_from_status()
+
+
+@app.route("/get-cards")
+@json_response
+def get_cards():
+    return data_handler.get_data_from_cards();
 
 
 @app.route("/get-cards/<int:board_id>")

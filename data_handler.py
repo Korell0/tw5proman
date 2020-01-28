@@ -15,7 +15,7 @@ def insert_board_data(cursor,id,title):
 @database_common.connection_handler
 def insert_card_data(cursor,id,board_id,title,status_id,order):
     cursor.execute("""
-                    INSERT INTO status
+                    INSERT INTO cards
                     VALUES ( %(id)s,%(board_id)s,%(title)s,%(status_id)s,%(order)s)                
             """,
                    {"id": id,
@@ -37,6 +37,34 @@ def insert_status_data(cursor,id,title):
                     }
                    )
 
+
+@database_common.connection_handler
+def get_data_from_boards(cursor):
+    cursor.execute("""
+    SELECT * FROM boards; 
+    """)
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
+def get_data_from_status(cursor):
+    cursor.execute("""
+    SELECT * FROM status; 
+    """)
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
+def get_data_from_cards(cursor):
+    cursor.execute("""
+    SELECT * FROM cards; 
+    """)
+    data = cursor.fetchall()
+    return data
+
+
 def get_card_status(status_id):
     """
     Find the first status matching the given id
@@ -52,7 +80,7 @@ def get_boards():
     Gather all boards
     :return:
     """
-    return persistence.get_boards(force=True)
+    return persistence.get_boards()
 
 
 def get_cards_for_board(board_id):
