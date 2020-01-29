@@ -24,6 +24,9 @@ def registration():
                 error = "This username is already in use"
                 return render_template("index.html", error=error)
             data_handler.registration(request.form["username"], request.form["password"])
+            session["username"]=request.form["username"]
+            username = session["username"]
+            return render_template("index.html" , username=username)
         error = "Wrong characters..."
         return render_template("index.html", error=error)
 
