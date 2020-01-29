@@ -81,7 +81,7 @@ export let dom = {
 
         for (let card of cards) {
             cardDiv = `
-            <div class="card">
+            <div class="card" draggable="true" ondragover="dragOver(event)" ondragstart="dragStart(event)">
                 <div class="card-remove"><i class="">X</i></div>
                 <div class="card-title">${card.title}</div>
             </div>
