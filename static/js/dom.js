@@ -14,6 +14,7 @@ export let dom = {
                 dom.loadCards(board.id)
             }
         });
+        dom.addRemoveEvents();
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -78,22 +79,34 @@ export let dom = {
         console.log(cards);
 
         let cardDiv = "";
-
+        let boards = document.querySelectorAll(".board");
         for (let card of cards) {
             cardDiv = `
-            <div class="card">
-                <div class="card-remove"><i class="">X</i></div>
+            <div class="card" data-cardId="${card.id}">
+                <div class="card-remove">X</div>
                 <div class="card-title">${card.title}</div>
             </div>
             `;
-            let containers = document.querySelectorAll(".board-column-content");
-            for (let container of containers) {
-                if (parseInt(container.dataset.statusid) === card.status_id){
-                    container.insertAdjacentHTML("beforeend", cardDiv);
+
+            for (let board of boards) {
+                if (parseInt(board.dataset.boardid) === card.board_id){
+                    let containers = board.querySelectorAll(".board-column-content");
+                    for (let container of containers){
+                        if (parseInt(container.dataset.statusid) === card.status_id) {
+                            container.insertAdjacentHTML("beforeend", cardDiv);
+                        }
+                    }
                 }
             }
         }
-
     },
-    // here comes more features
+    addRemoveEvents: function () {
+        let removeButtons = document.querySelectorAll(".card-remove");
+        for (let button of removeButtons) {
+            button.addEventListener("click", function(event){
+                //button.remove();
+                dataHandler.removeCardById(event.target.parentNode.dataset.cardid)
+            })
+        }
+    }
 };

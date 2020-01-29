@@ -64,6 +64,11 @@ def get_cards_for_board(cursor, board_id):
     data = cursor.fetchall()
     return data
 
+@database_common.connection_handler
+def remove_card_by_id(cursor, card_id):
+    cursor.execute("""
+    DELETE FROM cards WHERE id = %(card_id)s; 
+    """, {"card_id": card_id})
 
 def get_card_status(status_id):
     """
