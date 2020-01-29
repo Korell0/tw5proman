@@ -57,10 +57,10 @@ def get_data_from_status(cursor):
 
 
 @database_common.connection_handler
-def get_data_from_cards(cursor):
+def get_cards_for_board(cursor, board_id):
     cursor.execute("""
-    SELECT * FROM cards; 
-    """)
+    SELECT * FROM cards WHERE board_id = %(board_id)s; 
+    """, {"board_id": board_id})
     data = cursor.fetchall()
     return data
 
@@ -83,12 +83,12 @@ def get_boards():
     return persistence.get_boards()
 
 
-def get_cards_for_board(board_id):
-    persistence.clear_cache()
-    all_cards = persistence.get_cards()
-    matching_cards = []
-    for card in all_cards:
-        if card['board_id'] == str(board_id):
-            card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
-            matching_cards.append(card)
-    return matching_cards
+# def get_cards_for_board(board_id):
+#     persistence.clear_cache()
+#     all_cards = persistence.get_cards()
+#     matching_cards = []
+#     for card in all_cards:
+#         if card['board_id'] == str(board_id):
+#             card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
+#             matching_cards.append(card)
+#     return matching_cards

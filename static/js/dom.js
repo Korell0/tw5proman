@@ -9,6 +9,10 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
+            dom.loadStatuses();
+            for (let board of boards){
+                dom.loadCards(board.id)
+            }
         });
     },
     showBoards: function (boards) {
@@ -19,7 +23,7 @@ export let dom = {
 
         for(let board of boards){
             boardList += `
-                <section class="board" data-id="${board.id}">
+                <section class="board" data-boardId="${board.id}">
                 
                     <div class="board-header">
                         <span class="board-title">${board.title}</span>
@@ -54,7 +58,7 @@ export let dom = {
             newColumns += `
                         <div class="board-column">
                             <div class="board-column-title">${status.title}</div>
-                                <div class="board-column-content" data-id="${status.id}">
+                                <div class="board-column-content" data-statusId="${status.id}">
                                 </div>
                             </div>
                         </div>
@@ -66,11 +70,30 @@ export let dom = {
         }
     },
     loadCards: function (boardId) {
-        // retrieves cards and makes showCards called
+        dataHandler.getCardsByBoardId(boardId, function (cards) {
+            dom.showCards(cards);
+        })
     },
     showCards: function (cards) {
-        // shows the cards of a board
-        // it adds necessary event listeners also
+        console.log(cards);
+
+        let cardDiv = "";
+
+        for (let card of cards) {
+            cardDiv = `
+            <div class="card">
+                <div class="card-remove"><i class="">X</i></div>
+                <div class="card-title">${card.title}</div>
+            </div>
+            `;
+            let containers = document.querySelectorAll(".board-column-content");
+            for (let container of containers) {
+                if (parseInt(container.dataset.statusid) === card.status_id){
+                    container.insertAdjacentHTML("beforeend", cardDiv);
+                }
+            }
+        }
+
     },
     // here comes more features
 };
