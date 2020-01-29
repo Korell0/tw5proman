@@ -13,8 +13,27 @@
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+<!--         <script type="module" src="{{ url_for('static', filename='js/login_register_logout.js') }}" defer></script>-->
     </head>
     <body>
+   {% if username == None %}
+        <div id="login_register">
+            <form action='/login' method="POST">
+                <label for="user_name"></label><input type="text" name="username" id="user_name" placeholder="User name">
+                <label for="password"></label><input type="text" name="password" id="password" placeholder="Password">
+                <button id="loginbtn" type="submit">LOGIN</button>
+                <button id="register" type="submit" formaction="/registration">REGISTER</button>
+                <p>{{ error }}</p>
+            </form>
+            {% else %}
+            </div>
+            <div class="logged_in" style="display: flex">
+                <form action="/">
+                    <p>{{username}}</p>
+                    <button id=logout">LOGOUT</button>
+                </form>
+            </div>
+   {%endif%}
         <h1>ProMan</h1>
         <div id="boards">Itt meg nincs semmi de nem baj kész van a database </div>
     </body>
