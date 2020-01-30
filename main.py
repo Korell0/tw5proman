@@ -38,7 +38,18 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_boards()
+    return data_handler.get_data_from_boards()
+
+
+@app.route("/get-statuses")
+@json_response
+def get_statuses():
+    return data_handler.get_data_from_status()
+
+
+@app.route("/remove-card/<int:card_id>", methods=["POST"])
+def remove_card_by_id(card_id: int):
+    data_handler.remove_card_by_id(card_id)
 
 
 @app.route("/get-cards/<int:board_id>")

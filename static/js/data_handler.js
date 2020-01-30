@@ -17,8 +17,26 @@ export let dataHandler = {
         .then(json_response => callback(json_response));  // Call the `callback` with the returned object
     },
     _api_post: function (url, data, callback) {
-        // it is not called from outside
-        // sends the data to the API, and calls callback function
+        let cnt = 0;
+            // it is not called from outside
+            // sends the data to the API, and calls callback function
+            console.log(cnt);
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())  // parse the response as JSON
+            .then(json_response => {
+                console.log(json_response);
+                if (callback) {
+                    callback(json_response)
+                }
+            });
+            cnt += 1;  // Call the callback with the returned object
     },
     init: function () {
     },
@@ -37,12 +55,19 @@ export let dataHandler = {
     },
     getStatuses: function (callback) {
         // the statuses are retrieved and then the callback function is called with the statuses
+        this._api_get('/get-statuses', (response) => {
+            this._data = response;
+            callback(response);
+        });
     },
     getStatus: function (statusId, callback) {
         // the status is retrieved and then the callback function is called with the status
     },
-    getCardsByBoardId: function (boardId, callback) {
-        // the cards are retrieved and then the callback function is called with the cards
+    getCardsByBoardId: function (board_id, callback) {
+        this._api_get(`/get-cards/${board_id}`, (response) => {
+            this._data = response;
+            callback(response);
+        });
     },
     getCard: function (cardId, callback) {
         // the card is retrieved and then the callback function is called with the card
@@ -52,6 +77,9 @@ export let dataHandler = {
     },
     createNewCard: function (cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
+    },
+    removeCardById: function (cardId) {
+        this._api_post(`/remove-card/${cardId}`, null, null)
     }
     // here comes more features
 };

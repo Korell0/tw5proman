@@ -1,4 +1,5 @@
 import csv
+import data_handler
 
 STATUSES_FILE = './data/statuses.csv'
 BOARDS_FILE = './data/boards.csv'
@@ -39,13 +40,13 @@ def clear_cache():
         _cache.pop(k)
 
 
-def get_statuses(force=False):
-    return _get_data('statuses', STATUSES_FILE, force)
+def get_statuses():
+    return data_handler.get_data_from_status()
 
 
-def get_boards(force=False):
-    return _get_data('boards', BOARDS_FILE, force)
+def get_boards():
+    return data_handler.get_data_from_boards()
 
 
-def get_cards(force=False):
-    return _get_data('cards', CARDS_FILE, force)
+def get_cards():
+    return data_handler.get_data_from_cards()

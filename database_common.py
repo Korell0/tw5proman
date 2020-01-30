@@ -1,4 +1,5 @@
 import psycopg2.extras
+import os
 
 
 def get_connection_string():
