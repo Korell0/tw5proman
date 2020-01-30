@@ -9,7 +9,12 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
+            dom.loadStatuses();
+            for (let board of boards){
+                dom.loadCards(board.id)
+            }
         });
+        dom.addRemoveEvents();
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -19,7 +24,7 @@ export let dom = {
 
         for(let board of boards){
             boardList += `
-                <section class="board" data-id="${board.id}">
+                <section class="board" data-boardId="${board.id}">
                 
                     <div class="board-header">
                         <span class="board-title">${board.title}</span>
@@ -54,7 +59,7 @@ export let dom = {
             newColumns += `
                         <div class="board-column">
                             <div class="board-column-title">${status.title}</div>
-                                <div class="board-column-content" data-id="${status.id}">
+                                <div class="board-column-content" data-statusId="${status.id}">
                                 </div>
                             </div>
                         </div>
@@ -66,11 +71,42 @@ export let dom = {
         }
     },
     loadCards: function (boardId) {
-        // retrieves cards and makes showCards called
+        dataHandler.getCardsByBoardId(boardId, function (cards) {
+            dom.showCards(cards);
+        })
     },
     showCards: function (cards) {
-        // shows the cards of a board
-        // it adds necessary event listeners also
+        console.log(cards);
+
+        let cardDiv = "";
+        let boards = document.querySelectorAll(".board");
+        for (let card of cards) {
+            cardDiv = `
+            <div class="card" data-cardId="${card.id}">
+                <div class="card-remove">X</div>
+                <div class="card-title">${card.title}</div>
+            </div>
+            `;
+
+            for (let board of boards) {
+                if (parseInt(board.dataset.boardid) === card.board_id){
+                    let containers = board.querySelectorAll(".board-column-content");
+                    for (let container of containers){
+                        if (parseInt(container.dataset.statusid) === card.status_id) {
+                            container.insertAdjacentHTML("beforeend", cardDiv);
+                        }
+                    }
+                }
+            }
+        }
     },
-    // here comes more features
+    addRemoveEvents: function () {
+        let removeButtons = document.querySelectorAll(".card-remove");
+        for (let button of removeButtons) {
+            button.addEventListener("click", function(event){
+                //button.remove();
+                dataHandler.removeCardById(event.target.parentNode.dataset.cardid)
+            })
+        }
+    }
 };
