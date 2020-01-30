@@ -127,3 +127,19 @@ section.board{
 .card-title{
     padding-right: 16px;
 }
+
+p {
+    margin-top: 2vh;
+    margin-bottom: 1rem;
+    margin-right: 5vh;
+    font-size: 5vh;
+}
+.navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 3.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
