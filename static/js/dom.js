@@ -82,7 +82,7 @@ export let dom = {
         let boards = document.querySelectorAll(".board");
         for (let card of cards) {
             cardDiv = `
-            <div class="card" data-cardId="${card.id}">
+            <div class="card" id="cards" data-cardId="${card.id}">
                 <div class="card-remove">X</div>
                 <div class="card-title">${card.title}</div>
             </div>
@@ -99,14 +99,20 @@ export let dom = {
                 }
             }
         }
+        let removeButtons = document.querySelectorAll(".card-remove");
+        for (let button of removeButtons){
+            button.addEventListener("click", function () {
+                let pista = this;
+                dataHandler.removeCardById(this.parentNode.dataset.cardid
+                );
+                this.parentNode.style.display="none"
+            });
+        }
     },
     addRemoveEvents: function () {
-        let removeButtons = document.querySelectorAll(".card-remove");
-        for (let button of removeButtons) {
-            button.addEventListener("click", function(event){
-                //button.remove();
-                dataHandler.removeCardById(event.target.parentNode.dataset.cardid)
-            })
-        }
-    }
-};
+
+    },};
+        // let removeButtons = document.querySelectorAll(".card-remove");
+        //         for (let button of removeButtons) {
+        //             button.addEventListener("click", function(event){
+        //                 dataHandler.removeCardById(event.target.parentNode.dataset.cardid)})}

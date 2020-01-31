@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for,session,request,make_response,redirect
 from util import json_response
-
 import data_handler
 
 app = Flask(__name__)
@@ -72,8 +71,10 @@ def get_statuses():
 
 
 @app.route("/remove-card/<int:card_id>", methods=["POST"])
+@json_response
 def remove_card_by_id(card_id: int):
     data_handler.remove_card_by_id(card_id)
+    return {}
 
 
 @app.route("/get-cards/<int:board_id>")
