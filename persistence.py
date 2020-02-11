@@ -45,23 +45,6 @@ def remove_card_by_id(cursor, card_id):
     """, {"card_id": card_id})
 
 
-@database_common.connection_handler
-def add_new_card(cursor, board_id, card_title, status_id, order):
-    cursor.execute("""
-    INSERT INTO cards (board_id, title, status_id, "order")
-    VALUES (%(board_id)s, %(card_title)s, %(status_id)s, %(order)s)
-    """, {"boardId": board_id, "cardTitle": card_title, "statusId": status_id, "order": order})
-
-
-@database_common.connection_handler
-def change_board_title(cursor, id, title):
-    cursor.execute("""
-    UPDATE boards
-    SET title = %(title)s
-    WHERE id = %(id)s;
-    """, {"title": title, "id": id})
-
-
 def get_card_status(status_id):
     """
     Find the first status matching the given id
@@ -78,6 +61,28 @@ def get_boards():
     :return:
     """
     return data_handler.get_boards()
+
+# FullBoardDisplay
+# def get_cards_for_board(board_id):
+#     persistence.clear_cache()
+#     all_cards = persistence.get_cards()
+#     matching_cards = []
+#     for card in all_cards:
+#         if card['board_id'] == str(board_id):
+#             card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
+#             matching_cards.append(card)
+#     return matching_cards
+
+
+# def get_cards_for_board(board_id):
+#     persistence.clear_cache()
+#     all_cards = persistence.get_cards()
+#     matching_cards = []
+#     for card in all_cards:
+#         if card['board_id'] == str(board_id):
+#             card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
+#             matching_cards.append(card)
+#     return matching_cards
 
 
 @database_common.connection_handler
@@ -132,13 +137,6 @@ def registration(cursor,username,password):
                    {"username": username,
                     "hashed_bytes": hashed_bytes})
 
-@database_common.connection_handler
-def create_new_board(cursor):
-    cursor.execute(""" INSERT INTO boards (title) VALUES ('New board'); """)
-
-   # cursor.execute(""" SELECT MAX (id) FROM boards;""")
-    #new_board_id = cursor.fetchone()
-   # cursor.execute(""" INSERT INTO cards (board_id, title, card_order) VALUES (%(b_id)d, 'New card', '0');""", {"b_id": new_board_id})
 
 @database_common.connection_handler
 def get_username_by_user_id(cursor,userid):

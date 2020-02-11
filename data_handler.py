@@ -56,6 +56,12 @@ def get_cards_for_board(board_id):
     return persistance.get_cards_for_board(board_id)
 
 
+def add_new_card(card_title, board_id, status_id, order):
+    return persistance.add_new_card(card_title, board_id, status_id, order)
+
+
+def change_board_title(id, title):
+    return persistance.change_board_title(id, title)
 
 
 
