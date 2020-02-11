@@ -29,6 +29,8 @@ def get_usernames_from_database():
 def registration(username,password):
     return persistance.registration(username,password)
 
+def create_new_board():
+    return persistance.create_new_board()
 
 def get_hash_from_database(username):
     return persistance.get_hash_from_database(username)
