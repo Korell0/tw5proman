@@ -46,11 +46,11 @@ def remove_card_by_id(cursor, card_id):
 
 
 @database_common.connection_handler
-def add_new_card(cursor, board_id, card_title, status_id, order):
+def add_new_card(cursor, card_title, board_id, status_id, order):
     cursor.execute("""
     INSERT INTO cards (board_id, title, status_id, "order")
     VALUES (%(board_id)s, %(card_title)s, %(status_id)s, %(order)s)
-    """, {"boardId": board_id, "cardTitle": card_title, "statusId": status_id, "order": order})
+    """, {"board_id": board_id, "card_title": card_title, "status_id": status_id, "order": order})
 
 
 @database_common.connection_handler
