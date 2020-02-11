@@ -49,4 +49,4 @@ def get_boards():
 
 
 def get_cards():
-    return data_handler.get_data_from_cards()
+    return data_handler.get_cards_for_board()

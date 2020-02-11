@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for,session,request,make_response,redirect
+from flask import Flask, render_template, url_for, session, request, make_response, redirect
 from util import json_response
 
 import data_handler
@@ -15,7 +15,7 @@ def cookie_insertion():
     return response
 
 
-@app.route('/registration',methods=["GET","POST"])
+@app.route('/registration', methods=["GET", "POST"])
 def registration():
     if request.method == "POST":
         if " " not in request.form["username"] and " " not in request.form["password"] \
@@ -24,19 +24,20 @@ def registration():
                 error = "This username is already in use"
                 return render_template("index.html", error=error)
             data_handler.registration(request.form["username"], request.form["password"])
-            session["username"]=request.form["username"]
+            session["username"] = request.form["username"]
             username = session["username"]
-            return render_template("index.html" , username=username)
+            return render_template("index.html", username=username)
         error = "Wrong characters..."
         return render_template("index.html", error=error)
 
 
-@app.route('/login',methods=["GET","POST"])
+@app.route('/login', methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         if data_handler.get_hash_from_database(request.form["username"]) is not None:
             database_password = data_handler.get_hash_from_database(request.form["username"])
-            verify_password = data_handler.verify_password(request.form["password"], database_password["hashed_password"])
+            verify_password = data_handler.verify_password(request.form["password"],
+                                                           database_password["hashed_password"])
             if verify_password:
                 session["username"] = request.form["username"]
                 print(session["username"])
@@ -71,7 +72,6 @@ def get_statuses():
     return data_handler.get_data_from_status()
 
 
-
 """
 @app.route("/get-cards")
 @json_response
@@ -79,10 +79,10 @@ def get_cards():
     return data_handler.get_data_from_cards()
 """
 
+
 @app.route("/remove-card/<int:card_id>", methods=["POST"])
 def remove_card_by_id(card_id: int):
     data_handler.remove_card_by_id(card_id)
-
 
 
 @app.route("/get-cards/<int:board_id>")

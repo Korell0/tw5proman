@@ -63,11 +63,11 @@ section.board{
     float: right;
     margin: 13px;
 }
-
+/*
 .board-columns{
     display: flex;
     flex-wrap: nowrap;
-}
+}*/
 
 .board-column{
     padding: 10px;
@@ -142,4 +142,28 @@ p {
     font-size: 3.25rem;
     line-height: inherit;
     white-space: nowrap;
+}
+
+ /* Style the button that is used to open and close the collapsible content */
+.board-toggle {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .board-toggle:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.board-columns {
+  padding: 0 18px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  background-color: #f1f1f1;
 }

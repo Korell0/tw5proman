@@ -16,6 +16,7 @@ export let dom = {
         });
         dom.addRemoveEvents();
     },
+
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
@@ -29,11 +30,12 @@ export let dom = {
                     <div class="board-header">
                         <span class="board-title">${board.title}</span>
                         <button class="board-add">Add Card</button>
-                        <button class="board-toggle"><i class="">V</i></button>
+                        <button type="button" class="board-toggle" data-toggle="collapse" data-target="#columns"><i>V</i></button>
                     </div>
-                    <div class="board-columns">
+                    <div class="collapse" id="columns">
+                        <div class="board-columns">
+                        </div>
                     </div>
-
                 </section>
             `;
         }
@@ -47,6 +49,7 @@ export let dom = {
         let boardsContainer = document.querySelector('#boards');
         boardsContainer.insertAdjacentHTML("beforeend", outerHtml);
     },
+
     loadStatuses: function () {
       dataHandler.getStatuses(function(statuses){
           dom.showStatuses(statuses);
