@@ -75,11 +75,16 @@ export let dataHandler = {
     createNewBoard: function (boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
     },
-    createNewCard: function (cardTitle, boardId, statusId, callback) {
-        // creates new card, saves it and calls the callback function with its data
+    createNewCard: function (cardData, callback) {
+        this._api_post(`/add-card`, cardData);
+        callback();
     },
     removeCardById: function (cardId) {
-        this._api_post(`/remove-card/${cardId}`, null, null)
+        this._api_post(`/remove-card/${cardId}`,null,(response) => {
+            this._data = response;
+    })
+    },
+    changeBoardTitle: function (boardId, text) {
+        this._api_post("/change_board_title", {"title": text, "id":boardId});
     }
-    // here comes more features
 };
