@@ -79,7 +79,8 @@ export let dataHandler = {
         // creates new card, saves it and calls the callback function with its data
     },
     removeCardById: function (cardId) {
-        this._api_post(`/remove-card/${cardId}`, null, null)
-    }
+        this._api_post(`/remove-card/${cardId}`,null,(response) => {
+            this._data = response;
+    })
     // here comes more features
-};
+},};
