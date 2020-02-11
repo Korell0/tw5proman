@@ -3,20 +3,6 @@ import database_common
 import bcrypt
 
 
-# @database_common.connection_handler
-# def insert_cards_sql(cursor, id, board_id, title, status_id, order):
-#     cursor.execute("""
-#                     INSERT INTO cards
-#                     VALUES ( %(id)s,%(board_id)s,%(title)s,%(status_id)s,%(order)s)
-#             """,
-#                    {"id": id,
-#                     "board_id": board_id,
-#                     "title": title,
-#                     "status_id": status_id,
-#                     "order": order
-#                     })
-#
-
 def get_data_from_cards(cursor):
     cursor.execute("""
         SELECT * FROM users; 

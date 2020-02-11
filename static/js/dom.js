@@ -1,5 +1,5 @@
 // It uses data_handler.js to visualize elements
-import { dataHandler } from "./data_handler.js";
+import {dataHandler} from "./data_handler.js";
 
 export let dom = {
     init: function () {
@@ -7,12 +7,14 @@ export let dom = {
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
-        dataHandler.getBoards(function(boards){
+        dataHandler.getBoards(function (boards) {
             dom.showBoards(boards);
-            dom.loadStatuses();
-            for (let board of boards){
-                dom.loadCards(board.id)
-            }
+            dom.loadStatuses(function () {
+                    for (let board of boards) {
+                        dom.loadCards(board.id)
+                    }
+                }
+            );
         });
         dom.addRemoveEvents();
     },
@@ -22,7 +24,7 @@ export let dom = {
 
         let boardList = '';
 
-        for(let board of boards){
+        for (let board of boards) {
             boardList += `
                 <section class="board" data-boardId="${board.id}">
                 
@@ -47,9 +49,10 @@ export let dom = {
         let boardsContainer = document.querySelector('#boards');
         boardsContainer.insertAdjacentHTML("beforeend", outerHtml);
     },
-    loadStatuses: function () {
-      dataHandler.getStatuses(function(statuses){
-          dom.showStatuses(statuses);
+    loadStatuses: function (callback) {
+        dataHandler.getStatuses(function (statuses) {
+            dom.showStatuses(statuses);
+            callback();
         });
     },
     showStatuses: function (statuses) {
@@ -89,9 +92,9 @@ export let dom = {
             `;
 
             for (let board of boards) {
-                if (parseInt(board.dataset.boardid) === card.board_id){
+                if (parseInt(board.dataset.boardid) === card.board_id) {
                     let containers = board.querySelectorAll(".board-column-content");
-                    for (let container of containers){
+                    for (let container of containers) {
                         if (parseInt(container.dataset.statusid) === card.status_id) {
                             container.insertAdjacentHTML("beforeend", cardDiv);
                         }
@@ -100,19 +103,19 @@ export let dom = {
             }
         }
         let removeButtons = document.querySelectorAll(".card-remove");
-        for (let button of removeButtons){
+        for (let button of removeButtons) {
             button.addEventListener("click", function () {
-                let pista = this;
                 dataHandler.removeCardById(this.parentNode.dataset.cardid
                 );
-                this.parentNode.style.display="none"
+                this.parentNode.style.display = "none"
             });
         }
     },
     addRemoveEvents: function () {
 
-    },};
-        // let removeButtons = document.querySelectorAll(".card-remove");
-        //         for (let button of removeButtons) {
-        //             button.addEventListener("click", function(event){
-        //                 dataHandler.removeCardById(event.target.parentNode.dataset.cardid)})}
+    },
+};
+// let removeButtons = document.querySelectorAll(".card-remove");
+//         for (let button of removeButtons) {
+//             button.addEventListener("click", function(event){
+//                 dataHandler.removeCardById(event.target.parentNode.dataset.cardid)})}
