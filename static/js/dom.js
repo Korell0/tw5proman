@@ -16,7 +16,6 @@ export let dom = {
                 }
             );
         });
-        dom.addRemoveEvents();
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -48,6 +47,31 @@ export let dom = {
 
         let boardsContainer = document.querySelector('#boards');
         boardsContainer.insertAdjacentHTML("beforeend", outerHtml);
+
+        let addCardButtons = document.querySelectorAll(".board-add");
+        for (let button of addCardButtons) {
+            let cardData = {
+                    "cardTitle": "New card",
+                    "boardId": parseInt(button.parentNode.parentNode.dataset.boardid),
+                    "statusId": 0,
+                    "order": 0
+            };
+            button.addEventListener("click", function () {
+                dataHandler.createNewCard(cardData,
+                    function (){
+                    let boards = document.querySelectorAll(".board");
+                    for (let board of boards){
+                        board.remove();
+                    }
+                    dom.loadBoards();
+                    }
+                    )
+            })
+        }
+        let editableTitle = document.querySelectorAll(".board-title");
+        for (let title of editableTitle){
+            title.addEventListener("click", dom.eventHandler)
+        }
     },
     loadStatuses: function (callback) {
         dataHandler.getStatuses(function (statuses) {
@@ -111,11 +135,28 @@ export let dom = {
             });
         }
     },
-    addRemoveEvents: function () {
+    editDiv: function (div) {
+        let text = div.innerText;
+        let input = document.createElement("INPUT");
+        input.value = text;
 
+        div.innerHTML = "";
+        div.append(input);
+        input.focus();
+        input.addEventListener("focusout", function (event) {
+            text = div.querySelector("input").value;
+            if (text === "") {
+                text = "Click to edit name";
+            }
+            div.innerHTML = text;
+            dataHandler.changeBoardTitle(div.parentNode.parentNode.dataset.boardid, text);
+            div.addEventListener("click", dom.eventHandler)
+        });
+
+        div.removeEventListener("click", dom.eventHandler)
     },
+    eventHandler: function (event) {
+                event.preventDefault();
+                dom.editDiv(this);
+                }
 };
-// let removeButtons = document.querySelectorAll(".card-remove");
-//         for (let button of removeButtons) {
-//             button.addEventListener("click", function(event){
-//                 dataHandler.removeCardById(event.target.parentNode.dataset.cardid)})}

@@ -42,7 +42,7 @@ def login():
             if verify_password:
                 session["username"] = request.form["username"]
                 print(session["username"])
-                return render_template("index.html", username=session["username"])
+                return redirect("/")
         error = "Invalid username or password"
         return render_template("index.html", error=error)
     return render_template("index.html")
@@ -93,6 +93,27 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
     return data_handler.get_cards_for_board(board_id)
+
+
+@app.route("/add-card", methods=['POST'])
+@json_response
+def add_card():
+    data = request.get_json()
+    cardTitle = data["cardTitle"]
+    boardId = data["boardId"]
+    statusId = data["statusId"]
+    order = data["order"]
+    data_handler.add_new_card(cardTitle, boardId, statusId, order)
+    return {}
+
+
+@app.route("/change_board_title", methods=['POST'])
+def change_board_title():
+    data = request.get_json()
+    title = data["title"]
+    id = data["id"]
+    data_handler.change_board_title(id, title)
+    return {}
 
 
 def main():
