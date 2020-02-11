@@ -84,24 +84,24 @@ def get_boards():
 def get_usernames_from_database(cursor):
     cursor.execute("""
                     SELECT user_name FROM users
-                    """,)
+                    """, )
     names = cursor.fetchall()
     return [item["user_name"] for item in names]
 
 
 @database_common.connection_handler
-def get_username_by_user_id(cursor,user_id):
+def get_username_by_user_id(cursor, user_id):
     cursor.execute("""
                 SELECT user_name FROM users
                 WHERE id = %(user_id)s
     """,
-                   {"user_id":user_id})
+                   {"user_id": user_id})
     username = cursor.fetchone()
     return username
 
 
 @database_common.connection_handler
-def get_hash_from_database(cursor,username):
+def get_hash_from_database(cursor, username):
     cursor.execute("""
                 SELECT hashed_password FROM users
                 WHERE user_name = %(username)s
@@ -123,7 +123,7 @@ def verify_password(password, hash):
 
 
 @database_common.connection_handler
-def registration(cursor,username,password):
+def registration(cursor, username, password):
     hashed_bytes = get_hash_from_password(password)
     cursor.execute("""
                     INSERT INTO users (user_name,hashed_password)
@@ -132,19 +132,19 @@ def registration(cursor,username,password):
                    {"username": username,
                     "hashed_bytes": hashed_bytes})
 
+
 @database_common.connection_handler
 def create_new_board(cursor):
     cursor.execute(""" INSERT INTO boards (title) VALUES ('New board'); """)
 
-   # cursor.execute(""" SELECT MAX (id) FROM boards;""")
-    #new_board_id = cursor.fetchone()
-   # cursor.execute(""" INSERT INTO cards (board_id, title, card_order) VALUES (%(b_id)d, 'New card', '0');""", {"b_id": new_board_id})
+
+# cursor.execute(""" SELECT MAX (id) FROM boards;""") new_board_id = cursor.fetchone() cursor.execute(""" INSERT INTO
+# cards (board_id, title, card_order) VALUES (%(b_id)d, 'New card', '0');""", {"b_id": new_board_id})
 
 @database_common.connection_handler
-def get_username_by_user_id(cursor,userid):
+def get_username_by_user_id(cursor, userid):
     cursor.execute("""
                 SELECT user_name FROM users
                 WHERE id = %(userid)s
     """,
                    {"userid": userid})
-
