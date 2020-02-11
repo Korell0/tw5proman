@@ -132,6 +132,13 @@ def registration(cursor,username,password):
                    {"username": username,
                     "hashed_bytes": hashed_bytes})
 
+@database_common.connection_handler
+def create_new_board(cursor):
+    cursor.execute(""" INSERT INTO boards (title) VALUES ('New board'); """)
+
+   # cursor.execute(""" SELECT MAX (id) FROM boards;""")
+    #new_board_id = cursor.fetchone()
+   # cursor.execute(""" INSERT INTO cards (board_id, title, card_order) VALUES (%(b_id)d, 'New card', '0');""", {"b_id": new_board_id})
 
 @database_common.connection_handler
 def get_username_by_user_id(cursor,userid):

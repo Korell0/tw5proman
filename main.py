@@ -31,6 +31,10 @@ def registration():
     error = "Wrong characters..."
     return redirect("/")
 
+@app.route('/new-board')
+def new_board():
+    data_handler.create_new_board()
+    return redirect("/")
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
