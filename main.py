@@ -82,6 +82,14 @@ def get_statuses():
     return data_handler.get_data_from_status()
 
 
+"""
+@app.route("/get-cards")
+@json_response
+def get_cards():
+    return data_handler.get_data_from_cards()
+"""
+
+
 @app.route("/remove-card/<int:card_id>", methods=["POST"])
 @json_response
 def remove_card_by_id(card_id: int):

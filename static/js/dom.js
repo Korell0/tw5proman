@@ -17,6 +17,7 @@ export let dom = {
             );
         });
     },
+
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
@@ -30,11 +31,12 @@ export let dom = {
                     <div class="board-header">
                         <span class="board-title">${board.title}</span>
                         <button class="board-add">Add Card</button>
-                        <button class="board-toggle"><i class="">V</i></button>
+                        <button type="button" class="board-toggle" data-toggle="collapse" data-target="#columns"><i>V</i></button>
                     </div>
-                    <div class="board-columns">
+                    <div class="collapse" id="columns">
+                        <div class="board-columns">
+                        </div>
                     </div>
-
                 </section>
             `;
         }
@@ -111,6 +113,7 @@ export let dom = {
             cardDiv = `
             <div class="card" id="cards" data-cardId="${card.id}">
                 <div class="card-remove">X</div>
+
                 <div class="card-title">${card.title}</div>
             </div>
             `;
