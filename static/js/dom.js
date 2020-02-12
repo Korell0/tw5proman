@@ -32,6 +32,7 @@ export let dom = {
                         <span class="board-title">${board.title}</span>
                         <button class="board-add">Add Card</button>
                         <button type="button" class="board-toggle" data-toggle="collapse" data-target="#columns"><i>V</i></button>
+                        <button type="button" class="board-delete"> X </button>
                     </div>
                     <div class="collapse" id="columns">
                         <div class="board-columns">
@@ -133,11 +134,21 @@ export let dom = {
         for (let button of removeButtons) {
             button.addEventListener("click", function () {
                 dataHandler.removeCardById(this.parentNode.dataset.cardid
-                );
+            );
                 this.parentNode.style.display = "none"
-            });
-        }
-    },
+            })};
+
+        let removeTableButtons = document.querySelectorAll(".board-delete");
+        for (let button of removeTableButtons)
+        {
+            button.addEventListener("click", function () {
+                dataHandler.removeBoardById(this.parentNode.dataset.boardId);
+
+
+            this.parentNode.parentElement.style.display = "none"
+        })
+
+    }},
     editDiv: function (div) {
         let text = div.innerText;
         let input = document.createElement("INPUT");

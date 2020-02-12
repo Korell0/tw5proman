@@ -46,9 +46,20 @@ def remove_card_by_id(cursor, card_id):
 
 
 @database_common.connection_handler
+def remove_board_by_id(cursor, board_id):
+    cursor.execute("""
+    DELETE FROM boards WHERE id = %(board_id)s;
+    """, {"board_id": board_id})
+
+    cursor.execute("""
+    DELETE FROM cards WHERE board_id = %(board_id)s;
+    """, {"board_id": board_id})
+
+
+@database_common.connection_handler
 def add_new_card(cursor, card_title, board_id, status_id, order):
     cursor.execute("""
-    INSERT INTO cards (board_id, title, status_id, "order")
+    INSERT INTO cards (board_id, title, status_id, card_order)
     VALUES (%(board_id)s, %(card_title)s, %(status_id)s, %(order)s)
     """, {"board_id": board_id, "card_title": card_title, "status_id": status_id, "order": order})
 

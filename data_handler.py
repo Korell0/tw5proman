@@ -64,4 +64,6 @@ def change_board_title(id, title):
     return persistance.change_board_title(id, title)
 
 
+def remove_board_by_id(board_id):
+    return persistance.remove_board_by_id(board_id)
 

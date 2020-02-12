@@ -97,6 +97,13 @@ def remove_card_by_id(card_id: int):
     return {}
 
 
+@app.route("/remove-board/<int:board_id>", methods=["POST"])
+@json_response
+def remove_board_by_id(board_id: int):
+    data_handler.remove_board_by_id(board_id)
+    return {}
+
+
 @app.route("/get-cards/<int:board_id>")
 @json_response
 def get_cards_for_board(board_id: int):
