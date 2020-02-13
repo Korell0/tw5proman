@@ -86,6 +86,7 @@ export let dataHandler = {
             this._data = response;
     })
     },
+
     changeBoardTitle: function (boardId, text) {
         this._api_post("/change_board_title", {"title": text, "id":boardId});
     },

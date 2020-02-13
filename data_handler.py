@@ -29,9 +29,8 @@ def get_usernames_from_database():
 def registration(username,password):
     return persistance.registration(username,password)
 
-
-def create_new_board():
-    return persistance.create_new_board()
+def create_new_board(table_owner):
+    return persistance.create_new_board(table_owner)
 
 
 def get_hash_from_database(username):
@@ -42,8 +41,8 @@ def verify_password(password,hashed_password):
     return persistance.verify_password(password, hashed_password)
 
 
-def get_data_from_boards():
-    return persistance.get_data_from_boards()
+def get_data_from_boards(board_owner):
+    return persistance.get_data_from_boards(board_owner)
 
 
 def get_data_from_status():

@@ -157,6 +157,8 @@ export let dom = {
             }
         }
     },
+
+
     editDiv: function (div) {
         let text = div.innerText;
         let input = document.createElement("INPUT");
@@ -177,6 +179,7 @@ export let dom = {
 
         div.removeEventListener("click", dom.eventHandler)
     },
+
     eventHandler: function (event) {
         event.preventDefault();
         dom.editDiv(this);

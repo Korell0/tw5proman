@@ -34,7 +34,11 @@ def registration():
 
 @app.route('/new-board')
 def new_board():
-    data_handler.create_new_board()
+    if 'username' not in session:
+        table_owner = 'public'
+    else:
+        table_owner = session["username"]
+    data_handler.create_new_board(table_owner)
     return redirect("/")
 
 
@@ -75,7 +79,12 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_data_from_boards()
+    if 'username' not in session:
+        board_owner = 'public'
+    else:
+        board_owner = session['username']
+
+    return data_handler.get_data_from_boards(board_owner)
 
 
 @app.route("/get-statuses")
@@ -96,6 +105,13 @@ def get_cards():
 @json_response
 def remove_card_by_id(card_id: int):
     data_handler.remove_card_by_id(card_id)
+    return {}
+
+
+@app.route("/remove-board/<int:board_id>", methods=["POST"])
+@json_response
+def remove_board_by_id(board_id: int):
+    data_handler.remove_board_by_id(board_id)
     return {}
 
 
