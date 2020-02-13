@@ -46,11 +46,11 @@ def remove_card_by_id(cursor, card_id):
 
 
 @database_common.connection_handler
-def add_new_card(cursor, card_title, board_id, status_id, order):
+def add_new_card(cursor, _id, card_title, board_id, status_id, order):
     cursor.execute("""
-    INSERT INTO cards (board_id, title, status_id, "order")
-    VALUES (%(board_id)s, %(card_title)s, %(status_id)s, %(order)s)
-    """, {"board_id": board_id, "card_title": card_title, "status_id": status_id, "order": order})
+    INSERT INTO cards (id, board_id, title, status_id, "order")
+    VALUES (%(_id)s, %(board_id)s, %(card_title)s, %(status_id)s, %(order)s)
+    """, {"_id": _id, "board_id": board_id, "card_title": card_title, "status_id": status_id, "order": order})
 
 
 @database_common.connection_handler
@@ -149,9 +149,6 @@ def create_new_board(cursor):
     cursor.execute(""" INSERT INTO boards (title) VALUES ('New board'); """)
 
 
-# cursor.execute(""" SELECT MAX (id) FROM boards;""") new_board_id = cursor.fetchone() cursor.execute(""" INSERT INTO
-# cards (board_id, title, card_order) VALUES (%(b_id)d, 'New card', '0');""", {"b_id": new_board_id})
-
 @database_common.connection_handler
 def get_username_by_user_id(cursor, userid):
     cursor.execute("""
@@ -159,3 +156,12 @@ def get_username_by_user_id(cursor, userid):
                 WHERE id = %(userid)s
     """,
                    {"userid": userid})
+
+
+@database_common.connection_handler
+def get_biggest_cardid():
+    cursor.execute("""
+    SELECT MAX(id) as "id" FROM cards;
+    """)
+    data = cursor.fetchall()
+    return data

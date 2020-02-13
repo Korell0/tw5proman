@@ -5,6 +5,8 @@
 // object itself then you must use the 'this' keyword before. For example: 'this._data' below)
 export let dataHandler = {
     _data: {}, // it contains the boards and their cards and statuses. It is not called from outside.
+    _listOfBoardIds: [],
+    _listOfCardIds: [],
     _api_get: function (url, callback) {
         // it is not called from outside
         // loads data from API, parses it and calls the callback with it
@@ -90,5 +92,10 @@ export let dataHandler = {
     removeBoard: function (boardId, callback) {
         this._api_post("/remove-board", boardId);
         callback();
+    },
+    getBiggestCardId: function () {
+        this._api_get("/get-biggest-cardid", response => {
+            return response;
+        });
     }
 };

@@ -113,11 +113,12 @@ def get_cards_for_board(board_id: int):
 @json_response
 def add_card():
     data = request.get_json()
+    _id = data["id"]
     cardTitle = data["cardTitle"]
     boardId = data["boardId"]
     statusId = data["statusId"]
     order = data["order"]
-    data_handler.add_new_card(cardTitle, boardId, statusId, order)
+    data_handler.add_new_card(_id, cardTitle, boardId, statusId, order)
     return {}
 
 
@@ -135,6 +136,12 @@ def remove_board():
     board_id = request.get_json()
     data_handler.remove_board_by_id(board_id)
     return {}
+
+
+@app.route("/get-biggest-cardid")
+@json_response
+def get_biggest_cardid():
+    return data_handler.get_biggest_cardid()
 
 
 def main():

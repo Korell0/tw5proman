@@ -58,8 +58,8 @@ def get_cards_for_board(board_id):
     return persistance.get_cards_for_board(board_id)
 
 
-def add_new_card(card_title, board_id, status_id, order):
-    return persistance.add_new_card(card_title, board_id, status_id, order)
+def add_new_card(_id, card_title, board_id, status_id, order):
+    return persistance.add_new_card(_id, card_title, board_id, status_id, order)
 
 
 def change_board_title(id, title):
@@ -69,5 +69,8 @@ def change_board_title(id, title):
 def remove_board_by_id(board_id):
     return persistance.remove_board_by_id(board_id)
 
+
+def get_biggest_cardid():
+    return persistance.get_biggest_cardid()
 
 
