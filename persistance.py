@@ -12,10 +12,14 @@ def get_data_from_cards(cursor):
 
 
 @database_common.connection_handler
-def get_data_from_boards(cursor):
-    cursor.execute("""
-    SELECT * FROM boards; 
-    """)
+def get_data_from_boards(cursor, board_owner):
+    if board_owner == 'public':
+        cursor.execute("""
+        SELECT * FROM boards WHERE owner = 'public' ORDER BY id; 
+        """)
+    else:
+        cursor.execute(""" SELECT * FROM boards WHERE owner = 'public' OR owner = %(board_owner)s ORDER BY id;""",
+                       {"board_owner": board_owner})
     data = cursor.fetchall()
     return data
 

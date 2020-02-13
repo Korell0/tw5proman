@@ -77,7 +77,12 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_data_from_boards()
+    if 'username' not in session:
+        board_owner = 'public'
+    else:
+        board_owner = session['username']
+
+    return data_handler.get_data_from_boards(board_owner)
 
 
 @app.route("/get-statuses")

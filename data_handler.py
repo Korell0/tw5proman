@@ -40,8 +40,8 @@ def verify_password(password,hashed_password):
     return persistance.verify_password(password, hashed_password)
 
 
-def get_data_from_boards():
-    return persistance.get_data_from_boards()
+def get_data_from_boards(board_owner):
+    return persistance.get_data_from_boards(board_owner)
 
 
 def get_data_from_status():
