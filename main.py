@@ -33,7 +33,11 @@ def registration():
 
 @app.route('/new-board')
 def new_board():
-    data_handler.create_new_board()
+    if 'username' not in session:
+        table_owner = 'public'
+    else:
+        table_owner = session["username"]
+    data_handler.create_new_board(table_owner)
     return redirect("/")
 
 @app.route('/login', methods=["GET", "POST"])
