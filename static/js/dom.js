@@ -130,11 +130,11 @@ export let dom = {
                 }
             }
         }
+
         let removeButtons = document.querySelectorAll(".card-remove");
         for (let button of removeButtons) {
             button.addEventListener("click", function () {
-                dataHandler.removeCardById(this.parentNode.dataset.cardid
-            );
+                dataHandler.removeCardById(this.parentNode.dataset.cardid);
                 this.parentNode.style.display = "none"
             })};
 
@@ -142,13 +142,15 @@ export let dom = {
         for (let button of removeTableButtons)
         {
             button.addEventListener("click", function () {
-                dataHandler.removeBoardById(this.parentNode.dataset.boardId);
+                dataHandler.removeBoardById(this.parentNode.parentNode.dataset.boardid);
 
 
             this.parentNode.parentElement.style.display = "none"
         })
 
     }},
+
+
     editDiv: function (div) {
         let text = div.innerText;
         let input = document.createElement("INPUT");
@@ -169,6 +171,7 @@ export let dom = {
 
         div.removeEventListener("click", dom.eventHandler)
     },
+
     eventHandler: function (event) {
                 event.preventDefault();
                 dom.editDiv(this);
