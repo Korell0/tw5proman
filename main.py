@@ -31,10 +31,12 @@ def registration():
     error = "Wrong characters..."
     return redirect("/")
 
+
 @app.route('/new-board')
 def new_board():
     data_handler.create_new_board()
     return redirect("/")
+
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -125,6 +127,13 @@ def change_board_title():
     title = data["title"]
     id = data["id"]
     data_handler.change_board_title(id, title)
+    return {}
+
+
+@app.route("/remove-board", methods=["POST"])
+def remove_board():
+    board_id = request.get_json()
+    data_handler.remove_board_by_id(board_id)
     return {}
 
 

@@ -86,5 +86,9 @@ export let dataHandler = {
     },
     changeBoardTitle: function (boardId, text) {
         this._api_post("/change_board_title", {"title": text, "id":boardId});
+    },
+    removeBoard: function (boardId, callback) {
+        this._api_post("/remove-board", boardId);
+        callback();
     }
 };

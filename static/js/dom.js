@@ -26,11 +26,12 @@ export let dom = {
 
         for (let board of boards) {
             boardList += `
-                <section class="board" data-boardId="${board.id}">
+                <section class="board" id="${board.id}" data-boardId="${board.id}">
                 
                     <div class="board-header">
                         <span class="board-title">${board.title}</span>
                         <button class="board-add">Add Card</button>
+                        <button type="button" class="board-remove">X</button>
                         <button type="button" class="board-toggle" data-toggle="collapse" data-target="#columns"><i>V</i></button>
                     </div>
                     <div class="collapse" id="columns">
@@ -70,6 +71,17 @@ export let dom = {
                     )
             })
         }
+
+        let removeBoardButtons = document.querySelectorAll(".board-remove");
+        for (let button of removeBoardButtons){
+            button.addEventListener("click", function () {
+                let boardId = button.parentNode.parentNode.dataset.boardid;
+                dataHandler.removeBoard(boardId, function () {
+                    document.getElementById(`${boardId}`).remove();
+                });
+            })
+        }
+
         let editableTitle = document.querySelectorAll(".board-title");
         for (let title of editableTitle){
             title.addEventListener("click", dom.eventHandler)

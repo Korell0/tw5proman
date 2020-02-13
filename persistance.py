@@ -62,6 +62,17 @@ def change_board_title(cursor, id, title):
     """, {"title": title, "id": id})
 
 
+@database_common.connection_handler
+def remove_board_by_id(cursor, board_id):
+    cursor.execute("""
+    DELETE FROM boards WHERE id = %(board_id)s; 
+    """, {"board_id": board_id})
+
+    cursor.execute("""
+    DELETE FROM cards WHERE board_id = %(board_id)s;
+    """, {"board_id": board_id})
+
+
 def get_card_status(status_id):
     """
     Find the first status matching the given id

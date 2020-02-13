@@ -29,8 +29,10 @@ def get_usernames_from_database():
 def registration(username,password):
     return persistance.registration(username,password)
 
+
 def create_new_board():
     return persistance.create_new_board()
+
 
 def get_hash_from_database(username):
     return persistance.get_hash_from_database(username)
@@ -62,6 +64,10 @@ def add_new_card(card_title, board_id, status_id, order):
 
 def change_board_title(id, title):
     return persistance.change_board_title(id, title)
+
+
+def remove_board_by_id(board_id):
+    return persistance.remove_board_by_id(board_id)
 
 
 

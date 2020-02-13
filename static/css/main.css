@@ -63,6 +63,9 @@ section.board{
     float: right;
     margin: 13px;
 }
+.board-remove{
+    float: right;
+}
 /*
 .board-columns{
     display: flex;
