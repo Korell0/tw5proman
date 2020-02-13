@@ -137,18 +137,7 @@ export let dom = {
                 dataHandler.removeCardById(this.parentNode.dataset.cardid);
                 this.parentNode.style.display = "none"
             })};
-
-        let removeTableButtons = document.querySelectorAll(".board-delete");
-        for (let button of removeTableButtons)
-        {
-            button.addEventListener("click", function () {
-                dataHandler.removeBoardById(this.parentNode.parentNode.dataset.boardid);
-
-
-            this.parentNode.parentElement.style.display = "none"
-        })
-
-    }},
+    },
 
 
     editDiv: function (div) {
@@ -175,5 +164,16 @@ export let dom = {
     eventHandler: function (event) {
                 event.preventDefault();
                 dom.editDiv(this);
-                }
-};
+                },
+
+    boardDelete: function(){
+     let removeTableButtons = document.querySelectorAll(".board-delete");
+        for (let button of removeTableButtons)
+        {
+            button.addEventListener("click", function () {
+                dataHandler.removeBoardById(this.parentNode.parentNode.dataset.boardid);
+
+
+            this.parentNode.parentElement.style.display = "none"
+        })}
+}};

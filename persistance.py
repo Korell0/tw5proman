@@ -145,8 +145,8 @@ def registration(cursor, username, password):
 
 
 @database_common.connection_handler
-def create_new_board(cursor):
-    cursor.execute(""" INSERT INTO boards (title) VALUES ('New board'); """)
+def create_new_board(cursor, table_owner):
+    cursor.execute(""" INSERT INTO boards (title, owner) VALUES ('New board', %(owner)s); """, {"owner": table_owner})
 
 
 # cursor.execute(""" SELECT MAX (id) FROM boards;""") new_board_id = cursor.fetchone() cursor.execute(""" INSERT INTO
